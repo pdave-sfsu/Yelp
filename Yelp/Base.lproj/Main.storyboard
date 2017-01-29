@@ -32,9 +32,12 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="112"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Tuj-tR-1rk">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Tuj-tR-1rk">
                                                     <rect key="frame" x="8" y="8" width="65" height="65"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="65" id="Ai8-5d-dLl"/>
+                                                        <constraint firstAttribute="width" constant="65" id="REp-OT-21c"/>
+                                                    </constraints>
                                                 </imageView>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jYW-R4-phf">
                                                     <rect key="frame" x="81" y="33" width="83" height="15"/>
@@ -83,6 +86,11 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="Tuj-tR-1rk" secondAttribute="bottom" constant="12" id="JlB-v9-qRr"/>
+                                                <constraint firstItem="Tuj-tR-1rk" firstAttribute="top" secondItem="QLi-CC-uP1" secondAttribute="top" constant="8" id="d7k-Tj-N8H"/>
+                                                <constraint firstItem="Tuj-tR-1rk" firstAttribute="leading" secondItem="QLi-CC-uP1" secondAttribute="leading" constant="8" id="ddP-BO-SJ3"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="addressLabel" destination="9uG-Ks-R37" id="Cw7-XT-95v"/>
