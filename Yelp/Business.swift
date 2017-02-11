@@ -8,7 +8,10 @@
 
 import UIKit
 
+//Business is the model
 class Business: NSObject {
+    
+    //Properties for the business
     let name: String?
     let address: String?
     let imageURL: URL?
@@ -17,7 +20,9 @@ class Business: NSObject {
     let ratingImageURL: URL?
     let reviewCount: NSNumber?
     
+    //Initializing the properties to the content of the business
     init(dictionary: NSDictionary) {
+        
         name = dictionary["name"] as? String
         
         let imageURLString = dictionary["image_url"] as? String
@@ -75,6 +80,7 @@ class Business: NSObject {
         reviewCount = dictionary["review_count"] as? NSNumber
     }
     
+    //Returns a set of all the parsed businesses
     class func businesses(array: [NSDictionary]) -> [Business] {
         var businesses = [Business]()
         for dictionary in array {
@@ -84,10 +90,12 @@ class Business: NSObject {
         return businesses
     }
     
+    //
     class func searchWithTerm(term: String, completion: @escaping ([Business]?, Error?) -> Void) {
         _ = YelpClient.sharedInstance.searchWithTerm(term, completion: completion)
     }
     
+    //
     class func searchWithTerm(term: String, sort: YelpSortMode?, categories: [String]?, deals: Bool?, completion: @escaping ([Business]?, Error?) -> Void) -> Void {
         _ = YelpClient.sharedInstance.searchWithTerm(term, sort: sort, categories: categories, deals: deals, completion: completion)
     }

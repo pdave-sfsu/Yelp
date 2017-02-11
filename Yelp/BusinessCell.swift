@@ -8,8 +8,10 @@
 
 import UIKit
 
+//BusinessCell represents the tableView Cell
 class BusinessCell: UITableViewCell {
 
+    //All the outlets
     @IBOutlet weak var thumbImageView: UIImageView!
     @IBOutlet weak var ratingImageView: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!
@@ -18,7 +20,10 @@ class BusinessCell: UITableViewCell {
     @IBOutlet weak var addressLabel: UILabel!
     @IBOutlet weak var categoriesLabel: UILabel!
     
+    //Individual business represented in the cell
     var business: Business! {
+        
+        //didSet method to set the content in the cell
         didSet {
             nameLabel.text = business.name
             thumbImageView.setImageWith(business.imageURL!)
@@ -31,11 +36,11 @@ class BusinessCell: UITableViewCell {
         }
     }
     
-    
-    
+    //
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        
+        //Curves the thumbImageView
         thumbImageView.layer.cornerRadius = 3
         thumbImageView.clipsToBounds = true
     }

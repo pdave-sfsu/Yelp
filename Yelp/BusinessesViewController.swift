@@ -8,27 +8,37 @@
 
 import UIKit
 
+//BusinessViewController is the controller
 class BusinessesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
+    //businesses property
     var businesses: [Business]!
     
+    //tableViewOutlet
     @IBOutlet weak var tableView: UITableView!
     
-    
+    //viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        //Setting the delegate and the dataSource to the viewController
         tableView.delegate = self
         tableView.dataSource = self
         
+        //
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 120
         
-        Business.searchWithTerm(term: "Thai", completion: { (businesses: [Business]?, error: Error?) -> Void in
+        //Search terms for results
+        Business.searchWithTerm(term: "Indian", completion: { (businesses: [Business]?, error: Error?) -> Void in
             
+            //Sets the businesses with the businesses property
             self.businesses = businesses
+            
+            //Reloads the tableView with new data
             self.tableView.reloadData()
             
+            //Prints the name and address of each business
             if let businesses = businesses {
                 for business in businesses {
                     print(business.name!)
@@ -36,8 +46,7 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
                 }
             }
             
-            }
-        )
+        })
         
         /* Example of Yelp search with more search options specified
          Business.searchWithTerm("Restaurants", sort: .Distance, categories: ["asianfusion", "burgers"], deals: true) { (businesses: [Business]!, error: NSError!) -> Void in
@@ -52,11 +61,7 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
         
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
+    //numberOfRowsInSections: the number of cells in the table
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if businesses != nil {
             return businesses.count
@@ -65,14 +70,14 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
         }
     }
     
-    
-    @available(iOS 2.0, *)
+    //cellForRowAt: The content of the cell
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
+        //creating the cell and casting it to BusinessCell
         let cell = tableView.dequeueReusableCell(withIdentifier: "BusinessCell", for: indexPath) as! BusinessCell
         
+        //Retrieving the correct business to display in the cell
         cell.business = businesses[indexPath.row]
-        
         
         return cell
     }
@@ -86,5 +91,10 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
      // Pass the selected object to the new view controller.
      }
      */
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
     
 }
