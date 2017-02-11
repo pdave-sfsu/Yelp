@@ -25,12 +25,13 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
         tableView.delegate = self
         tableView.dataSource = self
         
-        //
+        //Tells the table to follow the auto-layout constraint rules
         tableView.rowHeight = UITableViewAutomaticDimension
+        //Estimated for the scrollHeight Dimension
         tableView.estimatedRowHeight = 120
         
         //Search terms for results
-        Business.searchWithTerm(term: "Indian", completion: { (businesses: [Business]?, error: Error?) -> Void in
+        Business.searchWithTerm(term: "Thai", completion: { (businesses: [Business]?, error: Error?) -> Void in
             
             //Sets the businesses with the businesses property
             self.businesses = businesses
