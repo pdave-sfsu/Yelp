@@ -98,7 +98,8 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        self.filterbusinesses = searchText.isEmpty ? businesses : businesses?.filter({(dataString: Business) -> Bool in
+        self.filterbusinesses = searchText.isEmpty ? businesses : businesses?.filter(
+            {(dataString: Business) -> Bool in
             return dataString.name!.range(of: searchText, options: .caseInsensitive) != nil
         })
         tableView.reloadData()
