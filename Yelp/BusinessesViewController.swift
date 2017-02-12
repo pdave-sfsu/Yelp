@@ -9,13 +9,18 @@
 import UIKit
 
 //BusinessViewController is the controller
-class BusinessesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class BusinessesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate {
     
     //businesses property
     var businesses: [Business]!
+    var filterbusinesses: [Business]!
+
     
     //tableViewOutlet
     @IBOutlet weak var tableView: UITableView!
+    
+    var searchBar: UISearchBar!
+    
     
     //viewDidLoad
     override func viewDidLoad() {
@@ -30,11 +35,18 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
         //Estimated for the scrollHeight Dimension
         tableView.estimatedRowHeight = 120
         
+        searchBar = UISearchBar()
+        searchBar.delegate = self
+        searchBar.sizeToFit()
+        
+        navigationItem.titleView = searchBar
+        
         //Search terms for results
         Business.searchWithTerm(term: "Thai", completion: { (businesses: [Business]?, error: Error?) -> Void in
             
             //Sets the businesses with the businesses property
             self.businesses = businesses
+            self.filterbusinesses = self.businesses
             
             //Reloads the tableView with new data
             self.tableView.reloadData()
@@ -48,6 +60,8 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
             }
             
         })
+        
+        
         
         /* Example of Yelp search with more search options specified
          Business.searchWithTerm("Restaurants", sort: .Distance, categories: ["asianfusion", "burgers"], deals: true) { (businesses: [Business]!, error: NSError!) -> Void in
@@ -64,8 +78,8 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
     
     //numberOfRowsInSections: the number of cells in the table
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if businesses != nil {
-            return businesses.count
+        if filterbusinesses != nil {
+            return filterbusinesses.count
         } else {
             return 0
         }
@@ -78,9 +92,16 @@ class BusinessesViewController: UIViewController, UITableViewDelegate, UITableVi
         let cell = tableView.dequeueReusableCell(withIdentifier: "BusinessCell", for: indexPath) as! BusinessCell
         
         //Retrieving the correct business to display in the cell
-        cell.business = businesses[indexPath.row]
+        cell.business = filterbusinesses[indexPath.row]
         
         return cell
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        self.filterbusinesses = searchText.isEmpty ? businesses : businesses?.filter({(dataString: Business) -> Bool in
+            return dataString.name!.range(of: searchText, options: .caseInsensitive) != nil
+        })
+        tableView.reloadData()
     }
     
     /*
