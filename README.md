@@ -34,7 +34,7 @@ Here's a walkthrough of implemented user stories:
 
 ![animatedGIF](YelpGIF.gif)
 
-# testanchor
+# Final Walkthrough
 Updated GIF (2/11):
 
 ![animatedGIF](YelpGIF2.gif)
